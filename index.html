@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="icon" href="./img/calavera.png" />
+    <link rel="stylesheet" type="text/css" href="./styles/styles.css" />
+    <!-- JavaScript Bundle with Popper -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="contenedor_formulario">
+      <div class="card">
+        <h5 class="card-header" style="justify-content: center; display: flex">
+          Bienvendo
+        </h5>
+        <div class="card-body">
+          <form class="row g-3" id="formulario">
+            <div class="col-md-12">
+              <label for="inputEmail4" class="form-label">Correo</label>
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                id="inputEmail4"
+                placeholder="ejemplo@correo.com"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="input" class="form-label">Contraseña</label>
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                id="inputPassword4"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4_1" class="form-label"
+                >Confirmar contraseña</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="inputPassword4_1"
+                required
+              />
+            </div>
+            <li style="list-style: none">Utilizar mas de 7 caracteres</li>
+            <li style="list-style: none">
+              Utilizar al menos un caracter especial (!@#$%^&*)
+            </li>
+            <li style="list-style: none">Utilizar mayusculas y minusculas</li>
+            <div class="col-12">
+              <label for="inputAddress" class="form-label">Dirección</label>
+              <input
+                type="text"
+                name="address"
+                class="form-control"
+                id="inputAddress"
+                placeholder="1234 Main St"
+                required
+              />
+            </div>
+            <!-- <div class="col-12">
+                        <label for="inputAddress2" class="form-label">Dirección 2</label>
+                        <input type="text" class="form-control" id="inputAddress2"
+                        placeholder="Apartment, studio, or floor">
+                    </div> -->
+            <div class="col-md-6">
+              <label for="inputCity" class="form-label">Ciudad</label>
+              <input
+                type="text"
+                name="city"
+                class="form-control"
+                id="inputCity"
+                required
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="inputState" class="form-label">Estado</label>
+              <input
+                type="text"
+                name="state"
+                class="form-control"
+                id="inputState"
+                required
+              />
+              <!-- <select id="inputState" class="form-select">
+                            <option>Valle del cauca</option>
+                            <option>Cauca</option>
+                        </select> -->
+            </div>
+            <div class="col-md-2">
+              <label for="inputZip" class="form-label">Codigo postal</label>
+              <input
+                type="text"
+                name="zip"
+                class="form-control"
+                id="inputZip"
+                required
+              />
+            </div>
+            <div class="md-3">
+              <label for="formFile" class="form-label"
+                >Subir imagen de perfil</label
+              >
+              <input
+                type="file"
+                name="img"
+                class="form-control"
+                id="formFile"
+                required
+              />
+            </div>
+
+            <div class="col-12" style="justify-content: center; display: flex">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                onclick="Registro()"
+              >
+                Registrarse
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="./src/main.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-analytics.js";
+    import { getStorage } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-storage.js";
+
+    import {
+      getDatabase,
+      ref,
+      set,
+    } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBBHTqZL6-Z8_hslC-Dy3D8mO9p_3OMnF8",
+      authDomain: "basededatos-884be.firebaseapp.com",
+      databaseURL: "https://basededatos-884be-default-rtdb.firebaseio.com",
+      projectId: "basededatos-884be",
+      storageBucket: "basededatos-884be.appspot.com",
+      messagingSenderId: "626069235468",
+      appId: "1:626069235468:web:e13691134aef42bacd0b29",
+      measurementId: "G-ZKEBTS1VSG",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const storage = getStorage(app)
+    const database = getDatabase();
+
+    //Subir imagen
+    // app.initializeApp(firebaseConfig);
+
+    // document.getElementById("formFile").addEventListener("change", (e) => {
+    //   const file = e.target.files[0];
+    //   const storageRef = app.storage().ref("images/" + file.name);
+    //   storageRef.put(file);
+    // });
+
+
+    function writeUserData(
+      userId,
+      email,
+      password,
+      address,
+      city,
+      state,
+      zip,
+      img
+    ) {
+      const db = getDatabase();
+      set(ref(db, "users/" + userId), {
+        email: email,
+        password: password,
+        address: address,
+        city: city,
+        state: state,
+        zip: zip,
+        img: img,
+      });
+    }
+
+    var ID = Math.floor(Math.random() * (10000 - 0) + 0);
+
+    var Formu = document.getElementById("formulario");
+    Formu.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var datos = new FormData(Formu);
+      writeUserData(
+        ID,
+        datos.get("email"),
+        datos.get("password"),
+        datos.get("address"),
+        datos.get("city"),
+        datos.get("state"),
+        datos.get("zip"),
+        datos.get("img")
+      );
+    });
+    // writeUserData(1, "juan@gmail.com", "Juan1234!", "Carrera 1", "Cali", "Valle", "1234" );
+  </script>
+</html>
+

@@ -1,0 +1,19 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+.contenedor_formulario{
+    width: auto;
+    height: auto;
+    display: flex;
+    margin:8% 30%;
+}
+.form-label {
+    display: flex;
+    justify-content: center;
+}
+
+
