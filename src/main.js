@@ -21,10 +21,9 @@ function Registro() {
     city: document.getElementById("inputCity").value,
     state: document.getElementById("inputState").value,
     zip: document.getElementById("inputZip").value,
-    img: document.getElementById("formFile"),
+    imagen: document.getElementById("formFile"),
   };
-
-
+  
   if (
     userV.email.length == 0 ||
     userV.password.length == 0 ||
@@ -37,14 +36,30 @@ function Registro() {
     console.log("Llene todos los campos");
   } else {
     if (userV.password === userV.confirmPassword) {
-      validateFile(userV.img);
+      validateFile(userV.imagen);
       validation(userV.email, userV.password);
-    //   if (!validateFile(userV.img) && validation(userV.email, userV.password)){
+    //   if (!validateFile(userV.imagen) && validation(userV.email, userV.password)){
     //   }
     } else {
       alert("Su contraseña no es igual");
     }
   }
+}
+
+function uploadImage(imagen) {
+  file = imagen.target.files[0];
+  console.log(file);
+}
+
+//SUBIR IMAGEN
+//ERROR EN 'FORMFILE
+document.getElementById("formFile").onClick = function () {
+  console.log(file);
+  firebase
+  .storage()
+  .ref('images/')
+  .child(file.name)
+  .put(file)
 }
 
 function validation(email, password) {
@@ -72,9 +87,9 @@ function validation(email, password) {
   return error;
 }
 
-function validateFile(img) {
+function validateFile(imagen) {
   var allowedExtension = ["jpeg", "jpg", "png", "gif"];
-  var fileExtension = img.value.split(".").pop().toLowerCase();
+  var fileExtension = imagen.value.split(".").pop().toLowerCase();
   var isValidFile = false;
 
   for (var index in allowedExtension) {
@@ -91,20 +106,3 @@ function validateFile(img) {
   return isValidFile;
 }
 
-    
-// function writeUserData(userId, email, password, address, city, state, zip) {
-//   const db = getDatabase();
-//   set(ref(db, "users/" + userId), {
-//     email: email, 
-//     password: password,
-//     address: address,
-//     city: city,
-//     state: state,
-//     zip: zip
-//   });
-// }
-
-// function Registro1(){
-    
-//     writeUserData(1, "juan@gmail.com", "Juan1234!", "Carrera 1", "Cali", "Valle", "1234" );
-// }

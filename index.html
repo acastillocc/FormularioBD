@@ -112,12 +112,12 @@
               />
             </div>
             <div class="md-3">
-              <label for="formFile" class="form-label"
+              <label form="formFile" class="form-label"
                 >Subir imagen de perfil</label
               >
               <input
                 type="file"
-                name="img"
+                name="imagen"
                 class="form-control"
                 id="formFile"
                 required
@@ -128,7 +128,7 @@
               <button
                 type="submit"
                 class="btn btn-primary"
-                onclick="Registro()"
+                ="Registro()"
               >
                 Registrarse
               </button>
@@ -169,14 +169,23 @@
     const storage = getStorage(app)
     const database = getDatabase();
 
-    //Subir imagen
-    // app.initializeApp(firebaseConfig);
+    function uploadImage(link) {
+      file = link.target.files[0];
+      console.log(file);
+    }
 
-    // document.getElementById("formFile").addEventListener("change", (e) => {
-    //   const file = e.target.files[0];
-    //   const storageRef = app.storage().ref("images/" + file.name);
-    //   storageRef.put(file);
-    // });
+    document.getElementById("formFile").onClick = function () {
+      console.log(file);
+      firebase
+      .storage()
+      .ref('images/')
+      .getDownloadURL()
+      .then(imgUrl => {
+        console.log(imgUrl)
+      })
+      // .child(file.name)
+      // .put(file);
+    }
 
 
     function writeUserData(
@@ -187,7 +196,7 @@
       city,
       state,
       zip,
-      img
+      imagen
     ) {
       const db = getDatabase();
       set(ref(db, "users/" + userId), {
@@ -197,11 +206,13 @@
         city: city,
         state: state,
         zip: zip,
-        img: img,
+        imagen: imagen,
       });
     }
 
+
     var ID = Math.floor(Math.random() * (10000 - 0) + 0);
+    const link = document.getElementById("FormFile");
 
     var Formu = document.getElementById("formulario");
     Formu.addEventListener("submit", function (e) {
@@ -215,7 +226,7 @@
         datos.get("city"),
         datos.get("state"),
         datos.get("zip"),
-        datos.get("img")
+        "imagen"
       );
     });
     // writeUserData(1, "juan@gmail.com", "Juan1234!", "Carrera 1", "Cali", "Valle", "1234" );
